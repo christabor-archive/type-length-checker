@@ -1,0 +1,270 @@
+<!doctype html>
+<html>
+<head>
+  <title>Type Length Checker</title>
+  <link rel="stylesheet" type="text/css" href="../common/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../common/bootstrap-responsive.css">
+  <link href='http://fonts.googleapis.com/css?family=Lato|Rum+Raisin|Mrs+Sheppards|Purple+Purse' rel='stylesheet' type='text/css'>
+  <style type="text/css">
+  *, *:before, *:after {
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+  }
+  body {
+    padding: 0;
+  }
+  .container {
+  }
+  .container#main-content {
+    border-bottom: 12px solid #ff670f;
+    background-color: #fff;
+  }
+  #banner-top {
+    background: #ff670f; /* Old browsers */
+    background: -moz-linear-gradient(left, #ff670f 0%, #ff670f 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, right top, color-stop(0%,#ff670f), color-stop(100%,#ff670f)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(left, #ff670f 0%,#ff670f 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(left, #ff670f 0%,#ff670f 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(left, #ff670f 0%,#ff670f 100%); /* IE10+ */
+    background: linear-gradient(to right, #ff670f 0%,#ff670f 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff670f', endColorstr='#ff670f',GradientType=1 ); /* IE6-9 */
+    color: #fff;
+    height: 120px;
+    padding: 20px 0;
+  }
+  #banner-top a {
+    color: #fff;
+  }
+  #fogo {
+    color: #fff;
+    border: 1px solid #fff;
+    border-radius: 1000px;
+    text-align: center;
+    padding: 10px 20px;
+    font-size: 24px;
+    width: 300px;
+    font-weight: bold;
+    margin-left: 30px;
+    letter-spacing: -0.08em;
+  }
+  #fogo sup {
+    font-size: 30%;
+    position: relative;
+    top: -10px;
+  }
+  ul, ol {
+    font-size: 80%;
+  }
+  li {
+    margin-bottom: 2em;
+  }
+  .checker-tooltip {
+    padding:0 20px;
+    font-size:11px;
+    color:#fff;
+    position:absolute;
+    top:10px;
+    right:10px;
+    font-weight: normal;
+    background-color:#444;
+    border-radius: 20px;
+    text-align:center;
+    padding: 10px;
+    width: 90%;
+    margin-left: -45%;
+    left: 50%;
+    opacity: 0.95;
+    font-family: 'Helvetica', Arial, sans-serif;
+    line-height: 20px;
+  }
+  .row > div {
+    margin-bottom: 2em;
+  }
+  .checker-tooltip {
+    display: none;
+  }
+  h1, h2, h3, h4, h5, h6, p, ul, ol {
+    position: relative;
+  }
+  #legend li {
+    width: 29%;
+    float: left;
+    height: 30px;
+    margin: 0 1em 1em 0 ;
+    padding: 5px 10px;
+    border-radius: 4px;
+    text-align: center;
+    color: #fff;
+  }
+  #legend .far-off {
+    background-color: red;
+  }
+  #legend .just-right {
+    background-color: green;
+  }
+  #legend .nearly-there {
+    background-color: orange;
+  }
+  @media all and (max-width: 800px) {
+    .container {
+      padding:  10px 30px;
+    }
+  }
+  </style>
+</head>
+<body>
+
+  <div id="banner-top">
+    <div class="container">
+      <div class="row">
+        <div class="span6">
+          <h2 id="fogo">Type Length Checker <sup>TM</sup></h2>
+        </div>
+        <div class="span6">
+          <br><br>
+          <small class="pull-right">A tool to check character length of all elements dynamically. Inspired by <a target="_blank" href="https://speakerdeck.com/kylefox/typesetting-the-web" target="_blank" title="Typesetting the web">Typesetting the Web</a></small>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container" id="main-content">
+    <div class="row">
+      <div class="span4">
+      </div>
+      <div class="span8">
+      </div>
+      <div class="span12">
+        <h4>What is this?</h4>
+        <p>This plugin allows you to inspect the "characters per line" of a given element, and determine if it's between the most readable range of <strong>50 to 80</strong> characters. It will highlight different colors depending on how far each element deviates from that range.</p>
+        <p><strong>Note: to see details for each, just hover over the element.</strong></p>
+        <br>
+      </div>
+      <div class="span8">
+        <h4>To run</h4>
+        <pre>
+          // Cache your elements, and then call the plugin on them.
+          // As demonstrated in the init code, you can also bind it to the window resize event, and test out various sizing on the fly.
+
+          var elems = $('#workspace').find('p, h1, h2, h3, h4, h5, h6, ul, ol');
+          elems.typeLengthChecker();
+
+          $(window).on('resize', function(e){
+          elems.typeLengthChecker();
+        });
+      </pre>
+      <br>
+    </div>
+    <div class="span4">
+      <h4>Try other fonts!</h4>
+      <div id="font-changer">
+        <a href="#" data-font-name="Lato, sans-serif" style="font-family:Lato, sans-serif;" class="btn btn-block">Lato</a>
+        <a href="#" data-font-name="Rum Raisin, sans-serif" style="font-family:Rum Raisin, sans-serif;" class="btn btn-block">Rum Raisin</a>
+        <a href="#" data-font-name="Purple Purse, cursive" style="font-family:Purple Purse, cursive;" class="btn btn-block">Purple Purse</a>
+        <a href="#" data-font-name="Georgia, serif" style="font-family:Georgia, serif;" class="btn btn-block">Georgia</a>
+        <a href="#" data-font-name="Lucida, Lucida Grande, sans-serif" style="font-family:Lucida, Lucida Grande, sans-serif;" class="btn btn-block">Lucida</a>
+      </div>
+      <hr>
+      <h4>Legend:</h4>
+      <ul class="inline" id="legend">
+        <li class="just-right"><span></span>Justtt right.</li>
+        <li class="nearly-there"><span></span>Nearly there</li>
+        <li class="far-off"><span></span>Way too far off</li>
+      </ul>
+    </div>
+    <hr>
+  </div>
+  <div class="row" id="workspace">
+    <div class="span12">
+      <h1>Lorem ipsum dolor sit culpa laborum suscipit est.</h1>
+    </div>
+    <div class="span4">
+      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Facilis, sint aliquid animi a hic libero esse cupiditate sed? Dolorum, qui impedit vero odit commodi molestiae enim laboriosam laborum optio veniam!</p>
+      <ol>
+        <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit. In, natus perspiciatis modi aliquam ipsum porro eos ullam tempore fuga. Tempore, fuga, ipsa veritatis enim nostrum repudiandae rem minima dolor nulla.</li>
+        <li>Illum, itaque omnis culpa necessitatibus inventore architecto temporibus sed commodi enim excepturi. Labore, repudiandae ab nihil neque earum ipsum. Modi, minima, aspernatur maxime accusamus ab enim quasi nam molestiae nemo.</li>
+      </ol>
+    </div>
+    <div class="span4">
+      <p>Sequi, recusandae aspernatur earum unde totam placeat cum tenetur minima. Sequi, itaque, odio, iure, quam impedit saepe tempore suscipit laborum excepturi consectetur illum nisi iusto voluptatibus in numquam! Corporis, asperiores.</p>
+      <ul>
+        <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit. In, natus perspiciatis modi aliquam ipsum porro eos ullam tempore fuga. Tempore, fuga, ipsa veritatis enim nostrum repudiandae rem minima dolor nulla.</li>
+        <li>Illum, itaque omnis culpa necessitatibus inventore architecto temporibus sed commodi enim excepturi. Labore, repudiandae ab nihil neque earum ipsum. Modi, minima, aspernatur maxime accusamus ab enim quasi nam molestiae nemo.</li>
+      </ul>
+    </div>
+    <div class="span4">
+      <p>Vero, ipsum, autem, ea soluta perspiciatis odio voluptatibus vitae doloribus suscipit dolore voluptatum iusto in unde asperiores tenetur labore laudantium cupiditate voluptatem non rem eum provident deserunt incidunt magnam aperiam.</p>
+      <ul>
+        <li>Lorem ipsum dolor sit amet, consectetur adipisicing elit. In, natus perspiciatis modi aliquam ipsum porro eos ullam tempore fuga. Tempore, fuga, ipsa veritatis enim nostrum repudiandae rem minima dolor nulla.</li>
+        <li>Illum, itaque omnis culpa necessitatibus inventore architecto temporibus sed commodi enim excepturi. Labore, repudiandae ab nihil neque earum ipsum. Modi, minima, aspernatur maxime accusamus ab enim quasi nam molestiae nemo.</li>
+      </ul>
+    </div>
+    <div class="span12">
+      <hr>
+    </div>
+    <div class="span6">
+     <h2>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Incidunt, neque, laborum, adipisci earum quo eligendi vitae distinctio fugit eveniet tempore aspernatur quia sapiente totam ipsum molestias illum alias officiis reiciendis!</h2>
+     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quibusdam, officia ab obcaecati aliquam eum libero repellat fugit animi vitae rerum. Provident omnis illum doloremque dolorum ea quasi harum ex possimus?</p>
+   </div>
+   <div class="span6">
+     <h2>Praesentium, voluptatum, tempora, sunt, autem corporis natus cupiditate reprehenderit consequatur sit voluptates quo facere distinctio alias optio perspiciatis dolor rerum quasi temporibus obcaecati eaque consequuntur cum officiis culpa vitae dolore.</h2>
+     <p>Commodi, praesentium, consequuntur, molestiae cupiditate blanditiis nemo voluptas error ipsa assumenda dolorem nisi consequatur tenetur illo vero repellat ratione magni aut placeat esse adipisci optio natus illum modi dolore deleniti.</p>
+   </div>
+   <div class="span12">
+    <hr>
+  </div>
+  <div class="span3">
+   <h4>Consectetur adipisicing elit. Dignissimos, consectetur omnis numquam non commodi mollitia porro vero excepturi dibore hic.</h4>
+   <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Suscipit, nobis, ad, unde, error nam itaque harum fugit quis illum neque magni obcaecati cum corrupti molestiae exercitationem eaque non quasi dolores.</p>
+   <p>Esse, totam, et, natus, accusantium labore magnam iure saepe perferendis expedita tenetur ipsum distinctio repudiandae eveniet quia nihil nostrum voluptas dolores reprehenderit itaque tempore fugit. Quam, doloribus laboriosam porro laudantium.</p>
+   <p>Quibusdam, atque, fugit est sunt suscipit minus aliquid dolor placeat eos vero voluptas non ratione quasi iste voluptate maxime veniam excepturi veritatis aut libero neque tempore nisi recusandae mollitia culpa.</p>
+ </div>
+ <div class="span3">
+   <h4>Consectetur adipisicing elit. Dignissimos, consectetur omnis numquam non commodi mollitia porro vero excepturi dibore hic.</h4>
+   <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Suscipit, nobis, ad, unde, error nam itaque harum fugit quis illum neque magni obcaecati cum corrupti molestiae exercitationem eaque non quasi dolores.</p>
+   <p>Esse, totam, et, natus, accusantium labore magnam iure saepe perferendis expedita tenetur ipsum distinctio repudiandae eveniet quia nihil nostrum voluptas dolores reprehenderit itaque tempore fugit. Quam, doloribus laboriosam porro laudantium.</p>
+   <p>Quibusdam, atque, fugit est sunt suscipit minus aliquid dolor placeat eos vero voluptas non ratione quasi iste voluptate maxime veniam excepturi veritatis aut libero neque tempore nisi recusandae mollitia culpa.</p>
+ </div>
+ <div class="span3">
+   <h4>Consectetur adipisicing elit. Dignissimos, consectetur omnis numquam non commodi mollitia porro vero excepturi dibore hic.</h4>
+   <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Suscipit, nobis, ad, unde, error nam itaque harum fugit quis illum neque magni obcaecati cum corrupti molestiae exercitationem eaque non quasi dolores.</p>
+   <p>Esse, totam, et, natus, accusantium labore magnam iure saepe perferendis expedita tenetur ipsum distinctio repudiandae eveniet quia nihil nostrum voluptas dolores reprehenderit itaque tempore fugit. Quam, doloribus laboriosam porro laudantium.</p>
+   <p>Quibusdam, atque, fugit est sunt suscipit minus aliquid dolor placeat eos vero voluptas non ratione quasi iste voluptate maxime veniam excepturi veritatis aut libero neque tempore nisi recusandae mollitia culpa.</p>
+ </div>
+ <div class="span3">
+   <h4>Consectetur adipisicing elit. Dignissimos, consectetur omnis numquam non commodi mollitia porro vero excepturi dibore hic.</h4>
+   <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Suscipit, nobis, ad, unde, error nam itaque harum fugit quis illum neque magni obcaecati cum corrupti molestiae exercitationem eaque non quasi dolores.</p>
+   <p>Esse, totam, et, natus, accusantium labore magnam iure saepe perferendis expedita tenetur ipsum distinctio repudiandae eveniet quia nihil nostrum voluptas dolores reprehenderit itaque tempore fugit. Quam, doloribus laboriosam porro laudantium.</p>
+   <p>Quibusdam, atque, fugit est sunt suscipit minus aliquid dolor placeat eos vero voluptas non ratione quasi iste voluptate maxime veniam excepturi veritatis aut libero neque tempore nisi recusandae mollitia culpa.</p>
+ </div>
+ <div class="span12">
+  <hr>
+</div>
+</div>
+</div>
+
+<script src="../common/jquery-1.9.1.min.js"></script>
+<script src="jquery.typeLengthChecker.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+
+  var workspace = $('#workspace'),
+  elems = $('#workspace').find('p, h1, h2, h3, h4, h5, h6, ul, ol');
+  elems.typeLengthChecker();
+
+  $(window).on('resize', function(e){
+    elems.typeLengthChecker();
+  });
+
+  $('#font-changer').on('click', 'a', function(e){
+    e.preventDefault();
+    var font = $(this).data('font-name');
+    workspace.css('font-family', font);
+    elems.typeLengthChecker();
+  });
+
+});
+</script>
+</body>
+</html>
