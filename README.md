@@ -17,3 +17,9 @@ elems.typeLengthChecker();
 $(window).on('resize', function(e){
 elems.typeLengthChecker();
 ```
+
+### Example screenshots
+
+![Screenshot 1](https://raw.github.com/christabor/type-length-checker/master/example-1.png "Screenshot 1")
+![Screenshot 2](https://raw.github.com/christabor/type-length-checker/master/example-2.png "Screenshot 2")
+![Screenshot 3](https://raw.github.com/christabor/type-length-checker/master/example-3.png "Screenshot 3")
