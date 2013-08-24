@@ -8,11 +8,11 @@
         FONT_SIZE_MAX = 100,
         FONT_SIZE_MIN = 10;
 
-        $(this).on('mouseover', function(e){
+        $(this).on('mouseover.typeLengthChecker', function(e){
             e.preventDefault();
             e.stopImmediatePropagation();
             $(this).find('.checker-tooltip').clearQueue().show();
-        }).on('mouseout', function(e){
+        }).on('mouseout.typeLengthChecker', function(e){
             e.preventDefault();
             e.stopImmediatePropagation();
             $(this).find('.checker-tooltip').clearQueue().hide();
