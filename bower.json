@@ -1,0 +1,10 @@
+{
+	"name" : "type-length-checker",
+	"version": "0.1.0",
+	"dependencies" : {
+		"jquery" : "latest"
+		},
+		"install" : {
+			"path" : "jquery.typeLengthChecker.js"
+		}
+	}
